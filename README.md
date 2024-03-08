@@ -1,3 +1,12 @@
+# 运行顺序
+1.一定要yecaptcha 或 2captcha的账号，我们需要里面的client_key
+```
+BeraChainTools(private_key=account.key, client_key=client_key,solver_provider='yescaptcha',rpc_url='https://rpc.ankr.com/berachain_testnet')
+```
+这里我们选择的是solver_provider='yescaptcha'。你可以在config.yescaptcha.py文件里进行配置
+2.在config文件里的addresss_key数组添加你的私钥，可以添加多个私钥
+3.运行顺序，先运行bex_script——>honey_script——>bend_script
+
 # BeraChainTools
 
 BeraChainTools 一个为 BeraChain 生态系统设计的工具集，旨在帮助用户轻松地进行各种交互和操作。
