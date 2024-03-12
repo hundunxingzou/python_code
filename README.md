@@ -30,34 +30,9 @@ pip install -r requirements.txt
 - 如果你还没有 ez-captcha
   账号，请先在这里注册：[ez-captcha注册链接](https://dashboard.ez-captcha.com/#/register?inviteCode=djnhuqvHuQJ)。
 
-Example 1 - 领水:
 
-```python
-from eth_account import Account
-from loguru import logger
 
-from bera_tools import BeraChainTools
-
-account = Account.create()
-logger.debug(f'address:{account.address}')
-logger.debug(f'key:{account.key.hex()}')
-# TODO 填写你的 YesCaptcha client key 或者2Captcha API Key 或者 ez-captcha ClientKey
-client_key = '00000000000000'
-# 使用yescaptcha solver googlev3
-bera = BeraChainTools(private_key=account.key, client_key=client_key,solver_provider='yescaptcha',rpc_url='https://rpc.ankr.com/berachain_testnet')
-# 使用2captcha solver googlev3
-# bera = BeraChainTools(private_key=account.key, client_key=client_key,solver_provider='2captcha',rpc_url='https://rpc.ankr.com/berachain_testnet')
-# 使用ez-captcha solver googlev3
-# bera = BeraChainTools(private_key=account.key, client_key=client_key,solver_provider='ez-captcha',rpc_url='https://rpc.ankr.com/berachain_testnet')
-
-# 不使用代理
-result = bera.claim_bera()
-# 使用代理
-# result = bera.claim_bera(proxies={'http':"http://127.0.0.1:8888","https":"http://127.0.0.1:8888"})
-logger.debug(result.text)
-```
-
-Example 2 - Bex 交互:
+Bex 交互:
 
 ```python
 #注释部分运行不稳定
@@ -108,35 +83,36 @@ for address in address_key:
     #logger.debug(result)
 
 ```
-
-Example 3 - Honey 交互:
+Honey 交互:
 
 ```python
-
+#注释部分运行不稳定
 from eth_account import Account
 from loguru import logger
 
 from bera_tools import BeraChainTools
-from config.address_config import honey_swap_address, usdc_address, honey_address
+from config.address_config import honey_swap_address, usdc_address, honey_address,address_key
+from config.yescaptcha import client_key,solver_provider
+for address in address_key:
+   account = Account.from_key(address)
+   bera = BeraChainTools(private_key=account.key, rpc_url='https://rpc.ankr.com/berachain_testnet',client_key=client_key, solver_provider=solver_provider)
 
-account = Account.from_key('xxxxxxxxxxxx')
-bera = BeraChainTools(private_key=account.key, rpc_url='https://rpc.ankr.com/berachain_testnet')
+   # 授权usdc
+   #approve_result = bera.approve_token(honey_swap_address, int("0x" + "f" * 64, 16), usdc_address)
+   #logger.debug(approve_result)
 
-# 授权usdc
-approve_result = bera.approve_token(honey_swap_address, int("0x" + "f" * 64, 16), usdc_address)
-logger.debug(approve_result)
-# 使用usdc mint honey
-usdc_balance = bera.usdc_contract.functions.balanceOf(account.address).call()
-result = bera.honey_mint(int(usdc_balance * 0.5))
-logger.debug(result)
+   # 使用usdc mint honey
+   usdc_balance = bera.usdc_contract.functions.balanceOf(account.address).call()
+   result = bera.honey_mint(int(usdc_balance * 0.5))
+   logger.debug(result)
 
-# 授权honey
-approve_result = bera.approve_token(honey_swap_address, int("0x" + "f" * 64, 16), honey_address)
-logger.debug(approve_result)
-# 赎回 
-honey_balance = bera.honey_contract.functions.balanceOf(account.address).call()
-result = bera.honey_redeem(int(honey_balance * 0.5))
-logger.debug(result)
+    # 授权honey
+    #approve_result = bera.approve_token(honey_swap_address, int("0x" + "f" * 64, 16), honey_address)
+    #logger.debug(approve_result)
+    # 赎回 
+    #honey_balance = bera.honey_contract.functions.balanceOf(account.address).call()
+    #result = bera.honey_redeem(int(honey_balance * 0.5))
+    #logger.debug(result)
 
 ```
 
