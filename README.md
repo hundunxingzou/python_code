@@ -159,7 +159,7 @@ for address in address_key:
     logger.debug(result)
 ```
 
-Example 5 - 0xhoneyjar 交互:
+0xhoneyjar 交互:
 
 ```python
 
@@ -167,62 +167,24 @@ from eth_account import Account
 from loguru import logger
 
 from bera_tools import BeraChainTools
-from config.address_config import ooga_booga_address, honey_address
+from config.address_config import ooga_booga_address, honey_address,address_key
+from config.yescaptcha import client_key,solver_provider
+for address in address_key:
+  account = Account.from_key(address)
+  bera = BeraChainTools(private_key=account.key,client_key=client_key, solver_provider=solver_provider, rpc_url='https://rpc.ankr.com/berachain_testnet')
 
-account = Account.from_key('xxxxxxxxxxxx')
-bera = BeraChainTools(private_key=account.key, rpc_url='https://rpc.ankr.com/berachain_testnet')
 
-
-# https://faucet.0xhoneyjar.xyz/mint
-# 授权
-approve_result = bera.approve_token(ooga_booga_address, int("0x" + "f" * 64, 16), honey_address)
-logger.debug(approve_result)
-# 花费4.2 honey mint
-result = bera.honey_jar_mint()
-logger.debug(result)
-
-```
-
-Example 6 - 部署合约:
-
-```python
-
-from eth_account import Account
-from loguru import logger
-from solcx import install_solc
-
-from bera_tools import BeraChainTools
-from config.address_config import ooga_booga_address, honey_address
-
-account = Account.from_key('xxxxxxxxxxxx')
-bera = BeraChainTools(private_key=account.key, rpc_url='https://rpc.ankr.com/berachain_testnet')
-
-# 安装0.4.18 版本编译器
-install_solc('0.4.18')
-# 读取sol文件
-with open('config/WETH.sol', 'r') as f:
-  code = f.read()
-# 部署合约
-result = bera.deploy_contract(code, '0.4.18')
-logger.debug(result)
+    # https://faucet.0xhoneyjar.xyz/mint
+  # 授权
+  approve_result = bera.approve_token(ooga_booga_address, int("0x" + "f" * 64, 16), honey_address)
+  logger.debug(approve_result)
+  # 花费4.2 honey mint
+  result = bera.honey_jar_mint()
+  logger.debug(result)
 
 ```
 
-Example 7 - 域名注册:
 
-```python
-
-from eth_account import Account
-from loguru import logger
-
-from bera_tools import BeraChainTools
-
-account = Account.from_key('xxxxxxxxxxxx')
-bera = BeraChainTools(private_key=account.key, rpc_url='https://rpc.ankr.com/berachain_testnet')
-result = bera.create_bera_name()
-logger.debug(result)
-
-```
 
 
 
