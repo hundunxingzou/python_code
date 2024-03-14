@@ -1,6 +1,7 @@
 
 from eth_account import Account
 from loguru import logger
+import random
 
 from bera_tools import BeraChainTools
 from config.address_config import honey_swap_address, usdc_address, honey_address,address_key
@@ -15,7 +16,7 @@ for address in address_key:
 
    # 使用usdc mint honey
    usdc_balance = bera.usdc_contract.functions.balanceOf(account.address).call()
-   result = bera.honey_mint(int(usdc_balance * 0.5))
+   result = bera.honey_mint(int(usdc_balance * random.uniform(0.1,0.5)))
    logger.debug(result)
 
     # 授权honey
@@ -25,3 +26,4 @@ for address in address_key:
     #honey_balance = bera.honey_contract.functions.balanceOf(account.address).call()
     #result = bera.honey_redeem(int(honey_balance * 0.5))
     #logger.debug(result)
+
