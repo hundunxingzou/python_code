@@ -4,7 +4,7 @@
 # File     :address_config.py
 from web3 import Web3
 import json
-with open('config/address_key.json', 'r') as file:
+with open('config/add_address.json', 'r') as file:
     data = json.load(file)
 address_key =  data['address']
 w3 = Web3()
