@@ -5,7 +5,7 @@ BeraChainTools(private_key=account.key, client_key=client_key,solver_provider='y
 ```
 这里我们选择的是solver_provider='yescaptcha'。你可以在config.yescaptcha.py文件里进行配置
 - 在config文件里的Add_address.json文件添加你的私钥，可以添加多个私钥
-- 运行顺序，先运行bex_script——>honey_script——>bend_script——>OXhoney_script
+- 运行顺序，先运行bex_script——>honey_script——>bend_script——>OXhoney_script，后面这三个程序可以打乱顺序运行，只要确保手续费足够
 - 手动领水地址：https://artio.faucet.berachain.com/
 
 # BeraChainTools
