@@ -1,2 +1,5 @@
-client_key=''
-solver_provider=''
+import json
+with open('config/add_address.json', 'r') as file:
+    data = json.load(file)
+client_key =  data['client_key']
+solver_provider=data['solver_provider']
