@@ -24,8 +24,10 @@ for address in address_key:
     result = bera.bend_borrow(int(balance * 0.8 * 1e10), honey_address)
     logger.debug(result)
 
+
    
     # 查询数量 
+    time.sleep(random.randint(30, 100))
     call_result = bera.bend_borrows_contract.functions.getUserReservesData(bend_pool_address, bera.account.address).call()
     repay_amount = call_result[0][0][4]
     logger.debug(repay_amount)
