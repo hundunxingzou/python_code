@@ -23,7 +23,7 @@ for address in address_key:
     if bera_balance>50000000000000000:
        result = bera.bex_swap(int(bera_balance * random.uniform(0.1,0.2)), wbear_address, usdc_address)
        logger.debug(result)
-       time.sleep(30)
+       time.sleep(random.randint(30, 100))
        # bex 使用usdc交换weth，目前与weth无法操作，官网也无法执行
        #usdc_balance = bera.usdc_contract.functions.balanceOf(account.address).call()
        #print(usdc_balance)
@@ -36,7 +36,7 @@ for address in address_key:
        approve_result = bera.approve_token(bex_approve_liquidity_address, int("0x" + "f" * 64, 16), usdc_address)
        logger.debug(approve_result)
         # bex 增加 usdc 流动性
-       time.sleep(45)
+       
        usdc_balance = bera.usdc_contract.functions.balanceOf(account.address).call()
        result = bera.bex_add_liquidity(int(usdc_balance * random.uniform(0.1,0.5)), usdc_pool_liquidity_address, usdc_address)
        logger.debug(result)
