@@ -1,3 +1,5 @@
 {
-    "address": ["XXXXXXX"]
+    "address": ["XXXXXXXXXX"],
+    "client_key":"XXXXXXXXX",
+    "solver_provider":"XXXXXXXX"
   }
