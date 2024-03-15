@@ -4,7 +4,7 @@
 BeraChainTools(private_key=account.key, client_key=client_key,solver_provider='yescaptcha',rpc_url='https://rpc.ankr.com/berachain_testnet')
 ```
 这里我们选择的是solver_provider='yescaptcha'。
-- 在config文件里的Add_address.json文件添加你的私钥和cclient_key以及solver_provider，可以添加多个私钥
+- 在config文件里的Add_address.json文件添加你的私钥和client_key以及solver_provider，可以添加多个私钥
 - 运行顺序，先运行bex_script——>honey_script——>bend_script——>OXhoney_script，后面这三个程序可以打乱顺序运行，只要确保手续费足够
 - 手动领水地址：https://artio.faucet.berachain.com/
 
